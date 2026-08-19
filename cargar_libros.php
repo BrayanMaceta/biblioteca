@@ -1,9 +1,10 @@
 <?php
-// Incluir el archivo de funciones donde está definida 'obtenerLibros'
-require_once 'funciones.php';
+// cargar_libros.php
+require_once 'conexion.php'; // Conectamos directamente a la base de datos
 
-// Ejecutar la función para obtener los libros
-$result = obtenerLibros($conn);
+// Hacemos la consulta directamente aquí (sin usar funciones externas)
+$query = "SELECT * FROM libros ORDER BY id DESC";
+$result = $conn->query($query);
 ?>
 
 <div class="table-wrapper">
@@ -55,3 +56,5 @@ $result = obtenerLibros($conn);
         </tbody>
     </table>
 </div>
+
+<?php $conn->close(); ?>
