@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👥 Gestión de Usuarios</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .nav-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-bar a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .nav-bar a:hover {
+            background: #5a67d8;
+        }
+        .nav-bar a.active {
+            background: #48bb78;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <h1><i class="fas fa-users"></i> Gestión de Usuarios</h1>
+            <p>Administra los usuarios de la biblioteca</p>
+        </header>
+
+        <!-- BARRA DE NAVEGACIÓN -->
+        <div class="nav-bar">
+            <a href="index.html"><i class="fas fa-book"></i> Libros</a>
+            <a href="usuarios.html" class="active"><i class="fas fa-users"></i> Usuarios</a>
+            <a href="prestamos.html"><i class="fas fa-hand-holding-heart"></i> Préstamos</a>
+        </div>
+
+        <!-- SECCIÓN DE USUARIOS -->
+        <div class="search-section">
+            <button class="btn btn-primary" onclick="mostrarFormularioUsuario()">
+                <i class="fas fa-plus"></i> Agregar Usuario
+            </button>
+        </div>
+
+        <!-- TABLA DE USUARIOS -->
+        <div class="table-container">
+            <h2><i class="fas fa-list"></i> Lista de Usuarios</h2>
+            <div id="tablaUsuarios"></div>
+        </div>
+
+        <!-- MODAL PARA AGREGAR/EDITAR USUARIO -->
+        <div id="modalUsuario" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal('modalUsuario')">&times;</span>
+                <h2 id="modalTituloUsuario"><i class="fas fa-user"></i> Agregar Usuario</h2>
+                <form id="formUsuario" onsubmit="guardarUsuario(event)">
+                    <input type="hidden" id="usuarioId" value="">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nombre *</label>
+                            <input type="text" id="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Apellido *</label>
+                            <input type="text" id="apellido" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" id="telefono">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" id="direccion">
+                    </div>
+                    
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
+                        <button type="button" class="btn btn-danger" onclick="cerrarModal('modalUsuario')">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script_usuarios.js"></script>
+</body>
+</html>

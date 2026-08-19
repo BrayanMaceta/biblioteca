@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 Gestión de Préstamos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .nav-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-bar a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background: #f7fafc;
+            color: #4a5568;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid transparent;
+        }
+        .nav-bar a:hover {
+            background: #edf2f7;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .nav-bar a.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .estado-activo {
+            color: #48bb78;
+            font-weight: 600;
+        }
+        .estado-vencido {
+            color: #fc8181;
+            font-weight: 600;
+        }
+        .estado-devuelto {
+            color: #a0aec0;
+        }
+        .info-box {
+            background: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .info-box h3 {
+            color: #2a4365;
+            margin-bottom: 5px;
+        }
+        .info-box p {
+            color: #4a5568;
+            margin: 0;
+        }
+        .stats-prestamos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card-prestamo {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+        }
+        .stat-card-prestamo i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .stat-card-prestamo span {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        .stat-card-prestamo label {
+            font-size: 0.9rem;
+            color: #718096;
+        }
+        .stat-card-prestamo.activos { border-color: #48bb78; }
+        .stat-card-prestamo.activos i { color: #48bb78; }
+        .stat-card-prestamo.devueltos { border-color: #a0aec0; }
+        .stat-card-prestamo.devueltos i { color: #a0aec0; }
+        .stat-card-prestamo.vencidos { border-color: #fc8181; }
+        .stat-card-prestamo.vencidos i { color: #fc8181; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <h1><i class="fas fa-hand-holding-heart"></i> Gestión de Préstamos</h1>
+            <p>Visualiza y administra todos los préstamos de la biblioteca</p>
+        </header>
+
+        <!-- BARRA DE NAVEGACIÓN -->
+        <div class="nav-bar">
+            <a href="index.html"><i class="fas fa-book"></i> Libros</a>
+            <a href="usuarios.html"><i class="fas fa-users"></i> Usuarios</a>
+            <a href="prestamos.html" class="active"><i class="fas fa-hand-holding-heart"></i> Préstamos</a>
+        </div>
+
+        <!-- INFORMACIÓN -->
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Información de Préstamos</h3>
+            <p>
+                <strong>⚠️ Los préstamos se vencen automáticamente después de 15 días.</strong><br>
+                Cada préstamo muestra: libro prestado, usuario, fechas, días transcurridos y estado actual.
+            </p>
+        </div>
+
+        <!-- ESTADÍSTICAS DE PRÉSTAMOS -->
+        <div class="stats-prestamos" id="stats">
+            <div class="stat-card-prestamo activos">
+                <i class="fas fa-clock"></i>
+                <span id="prestamosActivos">0</span>
+                <label>Préstamos Activos</label>
+            </div>
+            <div class="stat-card-prestamo devueltos">
+                <i class="fas fa-check-circle"></i>
+                <span id="prestamosDevueltos">0</span>
+                <label>Préstamos Devueltos</label>
+            </div>
+            <div class="stat-card-prestamo vencidos">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span id="prestamosVencidos">0</span>
+                <label>Préstamos Vencidos</label>
+            </div>
+        </div>
+
+        <!-- TABLA DE PRÉSTAMOS -->
+        <div class="table-container">
+            <h2><i class="fas fa-list"></i> Todos los Préstamos</h2>
+            <div id="tablaPrestamos"></div>
+        </div>
+    </div>
+
+    <script src="script_prestamos.js"></script>
+</body>
+</html>
