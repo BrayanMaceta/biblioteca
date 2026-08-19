@@ -1,9 +1,12 @@
 <?php
+// Leer la URL completa de la base de datos desde las variables de entorno de Render
 $database_url = getenv('DATABASE_URL');
-try {
-    $conexion = new PDO($database_url);
-    $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error de conexión: " . $e->getMessage());
+
+// Conexión nativa a PostgreSQL (NO usa PDO, por eso no necesita el driver)
+$conexion = pg_connect($database_url);
+
+// Verificar si la conexión falló
+if (!$conexion) {
+    die("Error de conexión: " . pg_last_error());
 }
 ?>
