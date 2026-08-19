@@ -3,7 +3,7 @@ FROM php:8.2-apache
 # Instalar dependencias del sistema necesarias para PostgreSQL
 RUN apt-get update && apt-get install -y libpq-dev
 
-# Instalar extensiones de PHP: MySQL y PostgreSQL
+# Instalar extensiones de PHP: MySQL y PostgreSQL (¡OJO con "pdo_pgsql"!)
 RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql
 
 # Copiar el código al servidor
