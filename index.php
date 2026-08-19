@@ -342,5 +342,30 @@
             }
         }
     </script>
+
+    <!-- NUEVO SCRIPT PARA CARGAR ESTADÍSTICAS AUTOMÁTICAMENTE -->
+    <script>
+        // Función para cargar las estadísticas al iniciar la página
+        function cargarEstadisticas() {
+            // Llamada AJAX para obtener los datos desde PHP
+            fetch('estadisticas.php?action=contadores')
+                .then(response => response.json())
+                .then(data => {
+                    // Actualizar los números en el HTML
+                    document.getElementById('totalLibros').textContent = data.total_libros;
+                    document.getElementById('totalUsuarios').textContent = data.total_usuarios;
+                    document.getElementById('prestamosActivos').textContent = data.prestamos_activos;
+                    document.getElementById('prestamosVencidos').textContent = data.prestamos_vencidos;
+                })
+                .catch(error => console.error('Error al cargar estadísticas:', error));
+        }
+
+        // Ejecutar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarEstadisticas();
+            // Cargar los libros por defecto
+            if (typeof cargarLibros === 'function') cargarLibros();
+        });
+    </script>
 </body>
 </html>
