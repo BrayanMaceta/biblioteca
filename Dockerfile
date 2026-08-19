@@ -1,8 +1,10 @@
-# Usamos una imagen de PHP que YA incluye el driver de PostgreSQL
-FROM php:8.2-pgsql-apache
+FROM php:8.2-apache
 
-# Copiamos todo el código de tu repositorio a la carpeta del servidor
+# Actualizar repositorios e instalar el driver de PostgreSQL
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo_pgsql
+
+# Copiar el código
 COPY . /var/www/html/
 
-# Damos permisos
+# Dar permisos
 RUN chown -R www-data:www-data /var/www/html/
