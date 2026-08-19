@@ -1,16 +1,12 @@
 <?php
-// Obtener los datos de las variables de entorno de Render
 $host = getenv('DB_HOST');
 $user = getenv('DB_USER');
 $pass = getenv('DB_PASSWORD');
 $dbname = getenv('DB_NAME');
 
-// Conectar a la base de datos
-$conexion = new mysqli($host, $user, $pass, $dbname);
-
-// Verificar si hubo un error de conexión
-if ($conexion->connect_error) {
-    // Si falla, mostramos el error real para saber qué pasa
-    die("Error de conexión: " . $conexion->connect_error);
+// CAMBIO AQUÍ: Ahora la variable se llama $conn para que coincida con el resto de tu código
+$conn = new mysqli($host, $user, $pass, $dbname);
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
 }
 ?>
