@@ -203,7 +203,7 @@ function guardarLibro(event) {
 }
 
 // =============================================
-// FUNCIÓN CORREGIDA PARA REGISTRAR PRÉSTAMOS
+// FUNCIÓN CORREGIDA PARA REGISTRAR PRÉSTAMOS Y ACTUALIZAR LA VISTA
 // =============================================
 function registrarPrestamo(event) {
     event.preventDefault();
@@ -231,18 +231,44 @@ function registrarPrestamo(event) {
             alert('Préstamo registrado correctamente');
             cerrarModal('modalPrestamo');
             
-            // ACTUALIZACIÓN EN TIEMPO REAL
+            // ACTUALIZAR TODOS LOS DATOS EN TIEMPO REAL
             cargarLibros();
             cargarEstadisticas();
-            if (typeof cargarPrestamos === 'function') {
-                cargarPrestamos(); // Esto recarga la tabla de préstamos automáticamente
-            }
+            cargarPrestamos(); // Esta línea hace que aparezca el préstamo
+            cargarEstadisticasPrestamos();
         } else {
-            alert('Error al registrar el préstamo');
+            alert('Error al registrar el préstamo: ' + data.mensaje);
         }
     })
     .catch(error => {
         console.error('Error:', error);
         alert('Error al registrar el préstamo');
     });
+}
+
+// Asegurar que cargarPrestamos esté definida (puede estar en otro archivo)
+if (typeof cargarPrestamos !== 'function') {
+    function cargarPrestamos() {
+        fetch('cargar_prestamos.php')
+            .then(response => response.text())
+            .then(data => {
+                const tabla = document.getElementById('tablaPrestamos');
+                if (tabla) tabla.innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+}
+
+if (typeof cargarEstadisticasPrestamos !== 'function') {
+    function cargarEstadisticasPrestamos() {
+        fetch('estadisticas_prestamos.php')
+            .then(response => response.json())
+            .then(data => {
+                const activos = document.getElementById('prestamosActivos');
+                const vencidos = document.getElementById('prestamosVencidos');
+                if (activos) activos.textContent = data.prestamosActivos || 0;
+                if (vencidos) vencidos.textContent = data.prestamosVencidos || 0;
+            })
+            .catch(error => console.error('Error:', error));
+    }
 }
