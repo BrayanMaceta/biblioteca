@@ -101,4 +101,6 @@ $result = $conn->query($sql);
     </table>
 </div>
 
-<?php cerrarConexion($conn); ?>
+<?php 
+// CORRECCIÓN: Eliminamos cerrarConexion() para mantener la conexión viva
+?>
