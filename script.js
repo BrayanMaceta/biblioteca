@@ -40,10 +40,10 @@ function cargarEstadisticas() {
             const prestamosActivos = document.getElementById('prestamosActivos');
             const prestamosVencidos = document.getElementById('prestamosVencidos');
             
-            if (totalLibros) totalLibros.textContent = data.totalLibros || 0;
-            if (totalUsuarios) totalUsuarios.textContent = data.totalUsuarios || 0;
-            if (prestamosActivos) prestamosActivos.textContent = data.prestamosActivos || 0;
-            if (prestamosVencidos) prestamosVencidos.textContent = data.prestamosVencidos || 0;
+            if (totalLibros) totalLibros.textContent = data.total_libros || 0;
+            if (totalUsuarios) totalUsuarios.textContent = data.total_usuarios || 0;
+            if (prestamosActivos) prestamosActivos.textContent = data.prestamos_activos || 0;
+            if (prestamosVencidos) prestamosVencidos.textContent = data.prestamos_vencidos || 0;
             
             console.log('✅ Estadísticas actualizadas');
         })
@@ -202,6 +202,9 @@ function guardarLibro(event) {
     });
 }
 
+// =============================================
+// FUNCIÓN CORREGIDA PARA REGISTRAR PRÉSTAMOS
+// =============================================
 function registrarPrestamo(event) {
     event.preventDefault();
     
@@ -227,8 +230,13 @@ function registrarPrestamo(event) {
         if (data.exito) {
             alert('Préstamo registrado correctamente');
             cerrarModal('modalPrestamo');
+            
+            // ACTUALIZACIÓN EN TIEMPO REAL
             cargarLibros();
             cargarEstadisticas();
+            if (typeof cargarPrestamos === 'function') {
+                cargarPrestamos(); // Esto recarga la tabla de préstamos automáticamente
+            }
         } else {
             alert('Error al registrar el préstamo');
         }
