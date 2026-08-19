@@ -1,6 +1,7 @@
 <?php
 // cargar_libros.php
-require_once 'conexion.php'; // Conectamos directamente a la base de datos
+// CORRECCIÓN: Usamos funciones.php para mantener la conexión unificada en todo el sistema
+require_once 'funciones.php';
 
 // Hacemos la consulta directamente aquí (sin usar funciones externas)
 $query = "SELECT * FROM libros ORDER BY id DESC";
@@ -57,4 +58,7 @@ $result = $conn->query($query);
     </table>
 </div>
 
-<?php $conn->close(); ?>
+<?php 
+// CORRECCIÓN: No cerramos la conexión aquí para que otros archivos puedan seguir usándola
+// La conexión se cerrará al final del script en el controlador principal (index.php)
+?>
