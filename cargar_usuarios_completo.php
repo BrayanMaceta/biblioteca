@@ -47,4 +47,7 @@ $result = obtenerUsuarios($conn);
     </table>
 </div>
 
-<?php cerrarConexion($conn); ?>
+<?php 
+// CORRECCIÓN: Eliminamos cerrarConexion() para que la conexión siga viva
+// La conexión se cerrará al final del script principal
+?>
