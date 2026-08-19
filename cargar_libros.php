@@ -1,6 +1,8 @@
 <?php
+// Incluir el archivo de funciones donde está definida 'obtenerLibros'
 require_once 'funciones.php';
 
+// Ejecutar la función para obtener los libros
 $result = obtenerLibros($conn);
 ?>
 
@@ -53,5 +55,3 @@ $result = obtenerLibros($conn);
         </tbody>
     </table>
 </div>
-
-<?php cerrarConexion($conn); ?>
