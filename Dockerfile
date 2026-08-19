@@ -9,3 +9,13 @@ COPY . /var/www/html/
 
 # Damos permisos (opcional, pero recomendado)
 RUN chown -R www-data:www-data /var/www/html/
+
+# --- ESTO ES LO NUEVO QUE DEBES AGREGAR ---
+# Instalamos el cliente de PostgreSQL para poder ejecutar comandos SQL desde la terminal de Render
+RUN apt-get update && apt-get install -y postgresql-client
+
+# Copiamos tu archivo SQL a la carpeta de la app
+COPY biblioteca.sql /var/www/html/biblioteca.sql
+
+# NOTA: No se puede ejecutar el SQL aquí (en construcción) porque la base de datos de Render aún no existe.
+# Tendremos que hacerlo manual en la consola "Shell" de Render.
