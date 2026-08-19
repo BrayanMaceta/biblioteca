@@ -1,12 +1,11 @@
 <?php
-// Leer la URL completa de la base de datos desde las variables de entorno de Render
-$database_url = getenv('DATABASE_URL');
+$host = "bphjwsfvbwciqlifjksf-mysql.services.clever-cloud.com";
+$user = "utpfilnpk87cho5v";
+$pass = "t1fTboji82NAjYFkyhl4";
+$dbname = "bphjwsfvbwciqlifjksf";
 
-// Conexión nativa a PostgreSQL (NO usa PDO, por eso no necesita el driver)
-$conexion = pg_connect($database_url);
-
-// Verificar si la conexión falló
-if (!$conexion) {
-    die("Error de conexión: " . pg_last_error());
+$conexion = new mysqli($host, $user, $pass, $dbname);
+if ($conexion->connect_error) {
+    die("Error de conexión: " . $conexion->connect_error);
 }
 ?>
